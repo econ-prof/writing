@@ -14,15 +14,6 @@
                 stroke-dashoffset: 0;
             }
         }
-        
-        @keyframes dashBackward {
-            from {
-                stroke-dashoffset: 0;
-            }
-            to {
-                stroke-dashoffset: 20;
-            }
-        }
 
         .path-monetary {
             stroke-dasharray: 10 10;
@@ -53,8 +44,8 @@
         <div class="text-center">
             <h1 class="text-3xl font-bold text-gray-900 mb-2">Circular Flow Model</h1>
             <p class="text-gray-600 max-w-3xl mx-auto">
-                This interactive simulation demonstrates the flow of money, resources, and goods in an economy. 
-                Adjust the spending variables to observe the dynamic impact on the total Gross Domestic Product.
+                This interactive simulation demonstrates the flow of money, resources, and goods in a three-sector economy. 
+                Adjust the spending variables to observe the dynamic impact on the total Gross Domestic Product and the individual flow amounts.
             </p>
         </div>
 
@@ -76,24 +67,30 @@
                     </defs>
 
                     <!-- Outer Loop: Monetary Flow (Green, Clockwise) -->
-                    <!-- Households to Product Market -->
-                    <path d="M 460,100 Q 700,100 700,250" fill="none" stroke="#22c55e" class="path-monetary" marker-end="url(#arrow-monetary)"/>
-                    <!-- Product Market to Firms -->
-                    <path d="M 700,350 Q 700,500 480,500" fill="none" stroke="#22c55e" class="path-monetary" marker-end="url(#arrow-monetary)"/>
-                    <!-- Firms to Factor Market -->
-                    <path d="M 340,500 Q 100,500 100,350" fill="none" stroke="#22c55e" class="path-monetary" marker-end="url(#arrow-monetary)"/>
-                    <!-- Factor Market to Households -->
-                    <path d="M 100,250 Q 100,100 320,100" fill="none" stroke="#22c55e" class="path-monetary" marker-end="url(#arrow-monetary)"/>
+                    <!-- Consumption: Households to Product Market -->
+                    <path d="M 450,100 Q 680,100 680,260" fill="none" stroke="#22c55e" class="path-monetary" marker-end="url(#arrow-monetary)"/>
+                    <!-- Investment: Firms to Product Market -->
+                    <path d="M 450,560 Q 720,560 720,340" fill="none" stroke="#22c55e" class="path-monetary" marker-end="url(#arrow-monetary)"/>
+                    <!-- Government Spending: Government to Product Market -->
+                    <path d="M 480,300 L 590,300" fill="none" stroke="#22c55e" class="path-monetary" marker-end="url(#arrow-monetary)"/>
+                    <!-- Taxes: Households to Government -->
+                    <path d="M 400,100 L 400,260" fill="none" stroke="#22c55e" class="path-monetary" marker-end="url(#arrow-monetary)"/>
+                    <!-- Revenue: Product Market to Firms -->
+                    <path d="M 640,330 Q 640,500 450,500" fill="none" stroke="#22c55e" class="path-monetary" marker-end="url(#arrow-monetary)"/>
+                    <!-- Factor Payments: Firms to Factor Market -->
+                    <path d="M 350,500 Q 160,500 160,340" fill="none" stroke="#22c55e" class="path-monetary" marker-end="url(#arrow-monetary)"/>
+                    <!-- Household Income: Factor Market to Households -->
+                    <path d="M 160,270 Q 160,100 350,100" fill="none" stroke="#22c55e" class="path-monetary" marker-end="url(#arrow-monetary)"/>
 
                     <!-- Inner Loop: Real Flow (Blue, Counter-Clockwise) -->
-                    <!-- Households to Factor Market -->
-                    <path d="M 380,100 Q 160,130 160,250" fill="none" stroke="#3b82f6" class="path-real" marker-end="url(#arrow-real)"/>
-                    <!-- Factor Market to Firms -->
-                    <path d="M 160,350 Q 160,470 320,500" fill="none" stroke="#3b82f6" class="path-real" marker-end="url(#arrow-real)"/>
-                    <!-- Firms to Product Market -->
-                    <path d="M 420,500 Q 640,470 640,350" fill="none" stroke="#3b82f6" class="path-real" marker-end="url(#arrow-real)"/>
-                    <!-- Product Market to Households -->
-                    <path d="M 640,250 Q 640,130 480,100" fill="none" stroke="#3b82f6" class="path-real" marker-end="url(#arrow-real)"/>
+                    <!-- Factors of Production: Households to Factor Market -->
+                    <path d="M 320,70 Q 120,70 120,260" fill="none" stroke="#3b82f6" class="path-real" marker-end="url(#arrow-real)"/>
+                    <!-- Resources: Factor Market to Firms -->
+                    <path d="M 120,330 Q 120,530 320,530" fill="none" stroke="#3b82f6" class="path-real" marker-end="url(#arrow-real)"/>
+                    <!-- Goods and Services: Firms to Product Market -->
+                    <path d="M 480,530 Q 680,530 680,340" fill="none" stroke="#3b82f6" class="path-real" marker-end="url(#arrow-real)"/>
+                    <!-- Goods and Services: Product Market to Households -->
+                    <path d="M 640,270 Q 640,70 480,70" fill="none" stroke="#3b82f6" class="path-real" marker-end="url(#arrow-real)"/>
                 </svg>
 
                 <!-- HTML Overlays for Nodes (Using Percentages for accurate viewBox scaling) -->
@@ -109,34 +106,53 @@
                 <div class="absolute top-[45%] left-[75%] w-[20%] h-[10%] bg-slate-600 text-white rounded-xl flex items-center justify-center font-bold text-xs md:text-base node-shadow border-2 border-slate-700 text-center px-2 z-10">
                     Product Market
                 </div>
+                <div class="absolute top-[45%] left-[40%] w-[20%] h-[10%] bg-purple-700 text-white rounded-xl flex items-center justify-center font-bold text-sm md:text-lg node-shadow border-2 border-purple-900 z-10">
+                    Government
+                </div>
 
                 <!-- HTML Overlays for Labels -->
-                <!-- Monetary Labels (Outer) -->
-                <div class="absolute top-[8%] left-[65%] w-[20%] text-green-700 font-bold text-[0.6rem] md:text-sm text-center">
+                <!-- Monetary Labels (Outer Green Paths) -->
+                <div class="absolute top-[10%] left-[65%] w-[20%] text-green-700 font-bold text-[0.6rem] md:text-sm text-center">
                     Consumption Spending
+                    <span id="diag-c" class="block font-black text-green-800 text-sm md:text-base">$1000</span>
                 </div>
-                <div class="absolute top-[80%] left-[67%] w-[20%] text-green-700 font-bold text-[0.6rem] md:text-sm text-center">
+                <div class="absolute top-[86%] left-[72%] w-[20%] text-green-700 font-bold text-[0.6rem] md:text-sm text-center">
+                    Investment Spending
+                    <span id="diag-i" class="block font-black text-green-800 text-sm md:text-base">$100</span>
+                </div>
+                <div class="absolute top-[41%] left-[56%] w-[18%] text-green-700 font-bold text-[0.6rem] md:text-sm text-center">
+                    Government Spending
+                    <span id="diag-g" class="block font-black text-green-800 text-sm md:text-base">$150</span>
+                </div>
+                <div class="absolute top-[28%] left-[42%] w-[15%] text-green-700 font-bold text-[0.6rem] md:text-sm text-center">
+                    Taxes
+                    <span id="diag-tax" class="block font-black text-green-800 text-sm md:text-base">$150</span>
+                </div>
+                <div class="absolute top-[72%] left-[62%] w-[20%] text-green-700 font-bold text-[0.6rem] md:text-sm text-center">
                     Firm Revenue
+                    <span id="diag-rev" class="block font-black text-green-800 text-sm md:text-base">$1250</span>
                 </div>
-                <div class="absolute top-[80%] left-[13%] w-[20%] text-green-700 font-bold text-[0.6rem] md:text-sm text-center">
+                <div class="absolute top-[72%] left-[12%] w-[20%] text-green-700 font-bold text-[0.6rem] md:text-sm text-center">
                     Factor Payments
+                    <span id="diag-fac" class="block font-black text-green-800 text-sm md:text-base">$1250</span>
                 </div>
-                <div class="absolute top-[8%] left-[15%] w-[20%] text-green-700 font-bold text-[0.6rem] md:text-sm text-center">
+                <div class="absolute top-[10%] left-[12%] w-[20%] text-green-700 font-bold text-[0.6rem] md:text-sm text-center">
                     Household Income
+                    <span id="diag-inc" class="block font-black text-green-800 text-sm md:text-base">$1250</span>
                 </div>
 
-                <!-- Real Labels (Inner) -->
-                <div class="absolute top-[28%] left-[23%] w-[15%] text-blue-700 font-semibold text-[0.55rem] md:text-xs text-center">
+                <!-- Real Labels (Inner Blue Paths) -->
+                <div class="absolute top-[23%] left-[23%] w-[15%] text-blue-700 font-semibold text-[0.55rem] md:text-xs text-center">
                     Factors of Production
                 </div>
-                <div class="absolute top-[63%] left-[23%] w-[15%] text-blue-700 font-semibold text-[0.55rem] md:text-xs text-center">
+                <div class="absolute top-[67%] left-[23%] w-[15%] text-blue-700 font-semibold text-[0.55rem] md:text-xs text-center">
                     Resources
                 </div>
-                <div class="absolute top-[63%] left-[62%] w-[15%] text-blue-700 font-semibold text-[0.55rem] md:text-xs text-center">
-                    Goods & Services
+                <div class="absolute top-[67%] left-[60%] w-[15%] text-blue-700 font-semibold text-[0.55rem] md:text-xs text-center">
+                    Goods and Services
                 </div>
-                <div class="absolute top-[28%] left-[62%] w-[15%] text-blue-700 font-semibold text-[0.55rem] md:text-xs text-center">
-                    Goods & Services
+                <div class="absolute top-[23%] left-[60%] w-[15%] text-blue-700 font-semibold text-[0.55rem] md:text-xs text-center">
+                    Goods and Services
                 </div>
             </div>
 
@@ -209,6 +225,15 @@
             const valG = document.getElementById("val-g");
             const valTotal = document.getElementById("val-total");
 
+            // Diagram Number Elements
+            const diagC = document.getElementById("diag-c");
+            const diagI = document.getElementById("diag-i");
+            const diagG = document.getElementById("diag-g");
+            const diagTax = document.getElementById("diag-tax");
+            const diagRev = document.getElementById("diag-rev");
+            const diagFac = document.getElementById("diag-fac");
+            const diagInc = document.getElementById("diag-inc");
+
             const monetaryPaths = document.querySelectorAll(".path-monetary");
             const realPaths = document.querySelectorAll(".path-real");
 
@@ -220,14 +245,26 @@
                 // Calculate Total Gross Domestic Product
                 const totalGrossDomesticProduct = consumption + investment + government;
 
-                // Update text displays
+                // Update text displays in the control panel
                 valC.textContent = "$" + consumption;
                 valI.textContent = "$" + investment;
                 valG.textContent = "$" + government;
                 valTotal.textContent = "$" + totalGrossDomesticProduct;
 
+                // Update text displays directly on the diagram
+                diagC.textContent = "$" + consumption;
+                diagI.textContent = "$" + investment;
+                diagG.textContent = "$" + government;
+                
+                // Assuming a balanced budget for this simple visual model where Taxes equal Government Spending
+                diagTax.textContent = "$" + government; 
+                
+                // Total flow running through the main outer circle equals Gross Domestic Product
+                diagRev.textContent = "$" + totalGrossDomesticProduct;
+                diagFac.textContent = "$" + totalGrossDomesticProduct;
+                diagInc.textContent = "$" + totalGrossDomesticProduct;
+
                 // Visual Feedback: Scale path thickness based on the total economy size
-                // A base thickness of 2, scaling upwards as the total increases
                 const thicknessScale = Math.max(2, (totalGrossDomesticProduct / 1000) * 3);
                 
                 monetaryPaths.forEach(path => {
